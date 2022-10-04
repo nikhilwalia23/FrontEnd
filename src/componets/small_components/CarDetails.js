@@ -1,10 +1,11 @@
 import React from "react";
-
+import axios from "axios";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import "animate.css";
 import { apiContext } from "../../ContextApi/ContextProvider";
+import {baseUrl} from "../../BackendApi/auth"
 
 import "../../style/CardDetails.css";
 import img1 from "../../static/images/gallary/1.jpg";
@@ -32,6 +33,8 @@ function CarDetails() {
   const [makePay, setMakePayment] = useState(false);
   const [guest, setguest] = useState(false);
   const [paymentprocessing, setPaymentProcessing] = useState(false);
+  const [transId,settransId] = useState("");
+  const [totelAmmout,settotelAmmount] = useState("");
   const navigate = useNavigate();
   const { state } = useLocation();
   const goToSignUpPage = () => {
@@ -39,6 +42,38 @@ function CarDetails() {
   };
 
   const makePayment = () => {
+    //get data from local storage
+    let data =
+    {
+      id: localStorage.getItem("id"),
+      Package: state.props._id,
+      name: "default",
+      member: memberCount
+
+    }
+    //config request for create transection
+    let config = {
+      method: 'post',
+      url: baseUrl + '/package/buypackage',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      withCredentials: true,
+      data: data
+    };
+
+    axios(config)
+    .then(function (response) {
+
+      //get ready for order creation
+      settransId(response.data._id);
+      settotelAmmount(response.data.cost);
+      console.log(totelAmmout);
+      
+    }).catch(function (error) {
+      console.log(error);
+    });
+
     setMakePayment((prev) => !prev);
     setguest(false);
   };
@@ -62,8 +97,6 @@ function CarDetails() {
       setMemberCount(memberCount - 1);
     }
   };
-  console.log(state.props);
-
   const imgArr = [
     { Img: img1 },
     { Img: img2 },

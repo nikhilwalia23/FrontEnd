@@ -8,7 +8,7 @@ import Loading from "./small_components/loading"
 import Banner from "./small_components/Topbanner.js";
 import Gallary from "./small_components/gallary";
 
-
+import { baseUrl } from "../BackendApi/auth.js";
 
 function temp(product,index) {
   return (
@@ -25,7 +25,7 @@ let Home = () => {
     //Fectching Products Data from Backend
     var config = {
       method: 'get',
-      url: 'https://touristbackend.herokuapp.com/api/package/showallpackage',
+      url: baseUrl+'/package/showallpackage',
       headers: {}
     };
   

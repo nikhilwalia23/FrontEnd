@@ -8,8 +8,8 @@ const Navbar = () => {
   let [hide, setHide] = useState(true);
   let { logedin, setLogedin } = useContext(apiContext);
 
- 
-  if(window.size>680){
+
+  if (window.size > 680) {
     setHide(true)
   }
 
@@ -17,28 +17,28 @@ const Navbar = () => {
     if (window.scrollY >= 100) {
       setHide(true);
     }
-  
+
   };
   window.addEventListener("scroll", changeSideBar);
 
- 
-    const closeNav = e=>{
-      if(window.onresize>= 680){
-     setHide(true);
+
+  const closeNav = e => {
+    if (window.onresize >= 680) {
+      setHide(true);
+    }
+  }
+
+
+
+  useEffect(() => {
+    const closeNav = e => {
+      if (e.path[0].tagName !== 'svg') {
+        setHide(true);
       }
     }
- 
- 
-
-  useEffect(()=>{
- const closeNav = e=>{
-   if(e.path[0].tagName !== 'svg'){
-  setHide(true);
-   }
- }
- document.body.addEventListener('click',closeNav);
- return()=> document.body.removeEventListener('click',closeNav);
-  },[]);
+    document.body.addEventListener('click', closeNav);
+    return () => document.body.removeEventListener('click', closeNav);
+  }, []);
 
   useEffect(() => {
     setLogedin(localStorage.getItem("user"));
@@ -47,7 +47,7 @@ const Navbar = () => {
   }, []);
   let toggleNav = () => {
     setHide(!hide);
-    
+
   };
   let logout = () => {
     setLogedin(false);
@@ -60,7 +60,7 @@ const Navbar = () => {
           <h3>Tourister</h3>
         </div>
         <button
-          className={hide  ? "menu" : "menu opened"}
+          className={hide ? "menu" : "menu opened"}
           onClick={toggleNav}
           aria-label="Main Menu"
         >
@@ -76,10 +76,10 @@ const Navbar = () => {
             />
           </svg>
         </button>
-        
+
         <ul className="navigations-links desktop-nav">
           <li>
-            <NavLink  to="/"> Home </NavLink>
+            <NavLink to="/"> Home </NavLink>
           </li>
           <li>
             <NavLink to="/about"> About Us </NavLink>
@@ -98,9 +98,9 @@ const Navbar = () => {
         </ul>
       </div>
       {/*Mobile Window Navbar */}
-      
 
-      <div  
+
+      <div
         className={
           hide
             ? "mobile-nav navigations-links"
@@ -109,26 +109,26 @@ const Navbar = () => {
       >
         <ul>
           <li>
-            <NavLink className="navLink"  to="/"> Home </NavLink>
+            <NavLink className="navLink" to="/"> Home </NavLink>
           </li>
           <li>
-            <NavLink className="navLink"  to="/about"> About</NavLink>
+            <NavLink className="navLink" to="/about"> About</NavLink>
           </li>
           <li>
-            <NavLink className="navLink"  to="/singin" onClick={logout}>
+            <NavLink className="navLink" to="/singin" onClick={logout}>
               {logedin ? "Logout" : "Sign in"}{" "}
             </NavLink>
           </li>
           <li>
-            <NavLink   className="navLink"  to="/contact">contact</NavLink>
+            <NavLink className="navLink" to="/contact">contact</NavLink>
           </li>
           <li>
-            <NavLink className="navLink"  to="/profile">profile</NavLink>
+            <NavLink className="navLink" to="/profile">profile</NavLink>
           </li>
         </ul>
       </div>
-       
-      <Outlet  />
+
+      <Outlet />
     </>
   );
 };
