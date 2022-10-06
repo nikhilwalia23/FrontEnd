@@ -21,7 +21,7 @@ function App() {
           <Route path='/about' element={<About />} />
           <Route path='/singin' element={<Authentication/>} />
           <Route path='/cardetails' element={<CarDetails/>} />
-          <Route path='/resetForm' element={<ResetForm/>} />
+          <Route path='/resetForm/:token' element={<ResetForm/>} />
           <Route path='/contact' element={<Contact/>}/>
           <Route path='/profile' element={<Profile/>}/>
           <Route path='/payment' element={<Payment/>}/>

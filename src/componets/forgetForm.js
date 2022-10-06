@@ -3,15 +3,12 @@ import "../style/Auth.css";
 import { faAt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
-import {data1} from "./Singin";
+import {axios} from 'axios'
 
 const ForgetForm = () => {
- 
-  const setForget = useContext(data1);
 
   const backToLogin=(e)=>{
-    e.stopPropagation();
-    setForget(false)
+    e.stopPropagation(); 
   }
 
   const [signinForm, setForm] = React.useState({
@@ -29,12 +26,41 @@ const ForgetForm = () => {
       ...prevInput,
       [name]: value,
     }));
+    setIsSubmit(false);
+    setError(validate(signinForm));
   }
 
  
   function handleSubmit(event) {
     event.preventDefault();
     setError(validate(signinForm));
+    if(isSubmit)
+    {
+      var data = JSON.stringify({
+        "email": signinForm.email
+      });
+      
+      var config = {
+        method: 'post',
+        url: 'https://touristbackend.herokuapp.com/api/user/forgetpassword',
+        headers: { 
+          'Content-Type': 'application/json'
+        },
+        data : data
+      };
+      
+      axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
+    else
+    {
+      console.log("error");
+    }
   }
 
   const validate = (values) => {
@@ -50,11 +76,6 @@ const ForgetForm = () => {
     }
 
     return error;
-  };
-
-  const navigate = useNavigate();
-  const ResetForm = () => {
-    navigate(`/resetForm`);
   };
 
 
@@ -88,7 +109,6 @@ const ForgetForm = () => {
               </p>
             <div class="mt-2 ">
               <button
-                onClick={ResetForm}
                 class="sign_btn btn  forgetBtn"
                 style={{ width: "100%" }}
                 type="submit"

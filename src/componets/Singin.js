@@ -83,6 +83,8 @@ function Singin() {
        
           localStorage.setItem("id", response.data.id);
           localStorage.setItem("name", response.data.name);
+          localStorage.setItem("email",response.data.email);
+          localStorage.setItem("number",response.data.number);
           StSubmitBtn({ btnText: "login ", disabled: false });
           navigate("/singin");
          if(response.data?.role === 0)
