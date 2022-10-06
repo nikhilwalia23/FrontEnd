@@ -20,8 +20,8 @@ function Profile() {
   const data = [
     {
       img:Pic1,
-      mobileNo:7202345672,
-      email:'mohan@gmail.com',
+      mobileNo: localStorage.getItem('number'),
+      email: localStorage.getItem('email'),
       address:'delhi',
       myOrder:{
          packageName:"kullu",
@@ -41,14 +41,7 @@ function Profile() {
 
   const [items, setItems] = useState();
 
-  useEffect(() => {
-    const items = localStorage.getItem("name");
-    if (items) {
-      setItems(items);
-    }
-  }, []);
 
-  console.log(items);
 
   const user = data.map((users)=>{
 return(

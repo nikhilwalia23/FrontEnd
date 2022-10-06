@@ -52,7 +52,7 @@ function Singin() {
       ...prevInput,
       [name]: value,
     }));
-  
+
     setError(validate(signinForm));
 
   }
@@ -71,7 +71,7 @@ function Singin() {
       console.log("hlog dfd ");
     var config = {
         method: "post",
-        url: "https://touristbackend.herokuapp.com/api/login",
+        url: baseUrl+"/login",
       headers: {
           "Content-Type": "application/json",
       },

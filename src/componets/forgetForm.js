@@ -3,7 +3,8 @@ import "../style/Auth.css";
 import { faAt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
-import {axios} from 'axios'
+import axios from "axios";
+import { baseUrl } from "../BackendApi/auth";
 
 const ForgetForm = () => {
 
@@ -42,7 +43,7 @@ const ForgetForm = () => {
       
       var config = {
         method: 'post',
-        url: 'https://touristbackend.herokuapp.com/api/user/forgetpassword',
+        url: baseUrl+'/user/forgetpassword',
         headers: { 
           'Content-Type': 'application/json'
         },
@@ -59,7 +60,7 @@ const ForgetForm = () => {
     }
     else
     {
-      console.log("error");
+      console.log("error1");
     }
   }
 

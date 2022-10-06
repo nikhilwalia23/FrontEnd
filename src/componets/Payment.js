@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { apiContext } from "../ContextApi/ContextProvider"
 import { axios } from 'axios'
+import { baseUrl } from "../BackendApi/auth";
 let Payment = (props) => {
   let { paymentId, setpaymentId } = useState();
   let { razorpaySignature, setrazorpaySignature } = useState();
@@ -43,7 +44,7 @@ let Payment = (props) => {
         body: raw,
         redirect: 'follow'
       };
-      fetch("https://touristbackend.herokuapp.com/api/payment/verfiy", requestOptions)
+      fetch(baseUrl+"payment/verfiy", requestOptions)
   .then(response => response.text())
   .then(result => console.log(result))
   .catch(error => console.log('error', error));

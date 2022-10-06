@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {axios} from 'axios'
+import axios from "axios";
 import "../style/Auth.css";
 import { toast } from "react-toastify";
+import { baseUrl } from "../BackendApi/auth";
 
 
 
@@ -12,7 +13,6 @@ const ResetPassword = () => {
 
   const navigate = useNavigate();
   const { token } = useParams();
-  console.log(token);
   const goToLoginPage = () => {
     navigate(`/singin`);
   };
@@ -28,13 +28,32 @@ const ResetPassword = () => {
 
   function handleChange(event) {
     const { name, value } = event.target;
-    setForm((prevInput) => ({
-      ...prevInput,
+    setForm({
+      ...signinForm,
       [name]: value,
-    }))
+    })
     setIsSubmit(false);
-    setError(validate(signinForm));
   }
+  useEffect(()=>{
+    setError(validate(signinForm));
+  },[signinForm])
+
+  const validate = (values) => {
+    const error = {};
+    if (!signinForm.password) {
+      error.password = "password is required";
+    } else if (!signinForm.confirm_password) {
+      error.confirm_password = "confirm password is required";
+    }
+    else if(signinForm.password!=signinForm.confirm_password)
+    {
+      error.confirm_password="Password did't , match";
+    }
+    else {
+      setIsSubmit(true)
+    }
+    return error;
+  };
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -46,7 +65,7 @@ const ResetPassword = () => {
       
       var config = {
         method: 'post',
-        url: 'http://localhost:3001/api/user/resetpassword',
+        url: baseUrl+'/user/resetpassword',
         headers: { 
           'Content-Type': 'application/json'
         },
@@ -63,26 +82,6 @@ const ResetPassword = () => {
     }
 
   }
-
-  useEffect(() => {
-    if (Object.keys(error).length === 0 && isSubmit) {
-    }
-  }, [error, isSubmit]);
-  const validate = (values) => {
-    const error = {};
-
-    if (!values.password) {
-      error.password = "password is required";
-    } else if (values.password !== values.confirm_password) {
-      error.confirm_password = "password did'nt match";
-    }
-    else {
-      setIsSubmit(true)
-    }
-    return error;
-  };
-
-
 
 
   return (
