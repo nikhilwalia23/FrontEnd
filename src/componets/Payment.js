@@ -1,8 +1,12 @@
-import { useEffect } from "react";
-
+import { useContext, useEffect, useState } from "react";
+import {apiContext} from "../ContextApi/ContextProvider"
+import {axios} from 'axios'
 let Payment = (props) => 
 {
-  console.log(props);
+  let {paymentId,setpaymentId} = useState();
+  let {razorpaySignature,setrazorpaySignature} = useState();
+  let {orderid,setorderId} = useState();
+  let {Ammount,orderId} = useContext(apiContext);
     const loadScript = (src) => {
         return new Promise((resolve) => {
           const script = document.createElement("script");
@@ -22,14 +26,13 @@ let Payment = (props) =>
     const options = {
         key: "rzp_test_8qugw0DaMh84Fe",
         currency: "INR",
-        amount: props.ammount,
+        amount: Ammount,
         name: "Tourist",
         description: "Test Wallet Transaction",
-        order_id: props.orderId,
+        order_id: orderId,
         handler: function (response) {
-          alert(response.razorpay_payment_id);
-          alert(response.razorpay_order_id);
           alert(response.razorpay_signature);
+          
         },
         prefill: {
           name: "Anirudh Jwala",
@@ -44,7 +47,7 @@ let Payment = (props) =>
     }    
     return (
     <>
-    <button onClick={pay}>Make Payment</button>
+    <button onClick={pay}>Pay Securaly</button>
     </>);
 }
 export default Payment;

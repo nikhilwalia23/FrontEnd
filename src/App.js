@@ -9,6 +9,7 @@ import Authentication from './componets/Authentication';
 import CarDetails from './componets/small_components/CarDetails';
 import Contact from './componets/Contact';
 import ResetForm from "./componets/resetForm";
+import Payment from './componets/Payment';
 
 function App() {
   //let [login,SetLogin] = useState(false);
@@ -23,6 +24,7 @@ function App() {
           <Route path='/resetForm' element={<ResetForm/>} />
           <Route path='/contact' element={<Contact/>}/>
           <Route path='/profile' element={<Profile/>}/>
+          <Route path='/payment' element={<Payment/>}/>
           </Route>
         </Routes>
     </BrowserRouter>

@@ -27,66 +27,94 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function CarDetails() {
+  let {setOrderId,setAmmount} = useContext(apiContext);
   let [memberCount, setMemberCount] = useState(1);
   const [readMore, setreadMore] = useState(true);
   let { logedin } = useContext(apiContext);
-  const [makePay, setMakePayment] = useState(false);
   const [guest, setguest] = useState(false);
   const [paymentprocessing, setPaymentProcessing] = useState(false);
-  const [transId,settransId] = useState("");
-  const [totelAmmout,settotelAmmount] = useState("");
+
   const navigate = useNavigate();
   const { state } = useLocation();
   const goToSignUpPage = () => {
     navigate("/singin");
   };
 
-  const makePayment = () => {
-    //get data from local storage
-    let data =
-    {
-      id: localStorage.getItem("id"),
-      Package: state.props._id,
-      name: "default",
-      member: memberCount
+console.log(state);
+let makePayment = () => 
+{
+   //get data from local storage
+   let data =
+   {
+     id: localStorage.getItem("id"),
+     Package: state.props._id,
+     name: "default",
+     member: memberCount
 
-    }
-    //config request for create transection
-    let config = {
-      method: 'post',
-      url: baseUrl + '/package/buypackage',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      withCredentials: true,
-      data: data
-    };
+   }
+   //config request for create transection
+   let config = {
+     method: 'post',
+     url: baseUrl + '/package/buypackage',
+     headers: {
+       'Content-Type': 'application/json'
+     },
+     withCredentials: true,
+     data: data
+   };
 
-    axios(config)
-    .then(function (response) {
+   axios(config)
+     .then(function (response) {
+       //get ready for order creation
+       let data1 =
+       {
+         id: data.id,
+         ammount: response.data.cost,
+         transId: response.data._id
+       }
 
-      //get ready for order creation
-      settransId(response.data._id);
-      settotelAmmount(response.data.cost);
-      console.log(totelAmmout);
-      
-    }).catch(function (error) {
-      console.log(error);
-    });
+       //configuring request to create order
+       let config = {
+         method: 'post',
+         url: baseUrl + '/order/create',
+         headers: {
+           'Content-Type': 'application/json',
+         },
+         withCredentials: true,
+         data: data1
+       };
 
-    setMakePayment((prev) => !prev);
-    setguest(false);
-  };
+       //make requesst to create order
+
+       axios(config)
+         .then(function (response) {
+           let pass = 
+           {
+             ammount:response.data.cost,
+             orderId:response.data.orderId
+           }
+           setAmmount(response.data.cost);
+           setOrderId(response.data.orderId);
+           navigate("/payment");
+         })
+         .catch(function (error) {
+           console.log(error);
+         });
+
+
+     })
+     .catch(function (error) {
+       console.log(error);
+     });
+}
 
   const paymentProcess = () => {
     setPaymentProcessing((prev) => !prev);
-    setMakePayment(false);
     setguest(false);
   };
 
   const reverseguest = () => {
     setguest((prev) => !prev);
-    setMakePayment(false);
   };
 
   const add = () => {
@@ -229,18 +257,6 @@ function CarDetails() {
                 <span>{state.props.price * memberCount} Rs</span>
               </div>
               <div>
-                {makePay ? (
-                  <div className="makePayment_container">
-                    <h1 onClick={paymentProcess} className="makepayment">
-                      Make payment
-                    </h1>
-                    <button className="btn" onClick={makePayment}>
-                      Cancel
-                    </button>
-                  </div>
-                ) : (
-                  " "
-                )}
               </div>
               <button
                 className="btn_card"
