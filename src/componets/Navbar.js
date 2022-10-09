@@ -92,9 +92,10 @@ const Navbar = () => {
           <li>
             <NavLink to="/contact"> Contact Us </NavLink>
           </li>
-          <li>
+          {logedin ? (<li>
             <NavLink to="/profile">profile</NavLink>
-          </li>
+          </li>): (<span></span>)
+          }
         </ul>
       </div>
       {/*Mobile Window Navbar */}
@@ -123,7 +124,10 @@ const Navbar = () => {
             <NavLink className="navLink" to="/contact">contact</NavLink>
           </li>
           <li>
-            <NavLink className="navLink" to="/profile">profile</NavLink>
+          {logedin ? (<li>
+            <NavLink to="/profile">profile</NavLink>
+          </li>): (<span></span>)
+          }
           </li>
         </ul>
       </div>

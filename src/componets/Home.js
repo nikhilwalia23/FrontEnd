@@ -18,8 +18,7 @@ function temp(product,index) {
 let Home = () => {
 
   console.log(process.env);
-  const [loading, setloading] =useState(true);
-  // const { cart, setCart } = useContext(apiContext);
+  const [loading, setloading] =useState(false);
   let [products,setProucts]=useState([]);
   console.log(process.env.NODE_ENV);
   useEffect(() => {
