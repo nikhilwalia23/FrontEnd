@@ -44,10 +44,11 @@ let Payment = (props) => {
         body: raw,
         redirect: 'follow'
       };
-      fetch(baseUrl+"payment/verfiy", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
+  //     fetch(baseUrl+"payment/verfiy", requestOptions)
+  // .then(response => response.text())
+  // .then(result => console.log(result))
+  // .catch(error => console.log('error', error));
+  console.log("dor verification by webhook");
     },
     prefill: {
       name: localStorage.getItem('name'),
