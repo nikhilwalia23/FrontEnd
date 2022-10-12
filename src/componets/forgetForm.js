@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "../BackendApi/auth";
+import { toast } from "react-toastify";
 
 const ForgetForm = () => {
 
@@ -52,10 +53,12 @@ const ForgetForm = () => {
       
       axios(config)
       .then(function (response) {
+        toast("Password Reset Link has been submited to register email")
         console.log(JSON.stringify(response.data));
       })
       .catch(function (error) {
         console.log(error);
+        toast("Email Id does not exist");
       });
     }
     else

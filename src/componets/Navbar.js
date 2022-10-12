@@ -124,9 +124,9 @@ const Navbar = () => {
             <NavLink className="navLink" to="/contact">contact</NavLink>
           </li>
           <li>
-          {logedin ? (<li>
+          {logedin && (<li>
             <NavLink to="/profile">profile</NavLink>
-          </li>): (<span></span>)
+          </li>)
           }
           </li>
         </ul>

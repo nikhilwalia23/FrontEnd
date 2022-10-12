@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import {BeatLoader} from "react-spinners"
 import "./profile.css";
 import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -13,8 +14,9 @@ function Profile() {
 
   const [showOrder, flip] = useState(false);
   const [Orders,setOrders]  = useState([]);
+  const [loading,setLoading] = useState(false);
   const openOrderBox = () => {
-    console.log();
+    setLoading(true);
     var data = {
       id: localStorage.getItem("id")
     }
@@ -34,9 +36,11 @@ function Profile() {
         console.log(response.data.Packages_taken);
         setOrders(response.data.Packages_taken);
         console.log(Orders);
+        setLoading(false);
       })
       .catch(function (error) {
         console.log(error);
+        setLoading(false);
       });
   }
 
@@ -67,6 +71,7 @@ function Profile() {
                 <h3 className="address persional" >{userDetails.address}</h3>
               </div>
               <button className="orderdetails" onClick={openOrderBox} >view orders</button>
+              {loading && <BeatLoader/>}
             </div>
     </div>
   )

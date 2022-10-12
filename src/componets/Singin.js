@@ -68,7 +68,6 @@ function Singin() {
 
   useEffect(() => {
     if(isSubmit){
-      console.log("hlog dfd ");
     var config = {
         method: "post",
         url: baseUrl+"/login",

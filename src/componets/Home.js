@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
+import {BeatLoader} from "react-spinners";
 import axios from "axios";
 import Card from "../componets/small_components/Card.js";
  import Advanture from "./advantures.js";
 import Service from "./small_components/service.js";
 import "./home.css";
-import Loading from "./small_components/loading" 
 import Banner from "./small_components/Topbanner.js";
 import Gallary from "./small_components/gallary";
 
@@ -18,7 +18,7 @@ function temp(product,index) {
 let Home = () => {
 
   console.log(process.env);
-  const [loading, setloading] =useState(false);
+  const [loading, setloading] =useState(true);
   let [products,setProucts]=useState([]);
   console.log(process.env.NODE_ENV);
   useEffect(() => {
@@ -44,13 +44,6 @@ let Home = () => {
       });
   }, []);
 
-  if(loading){
-    return(
-      <main>
-<Loading/>
-      </main>
-    )
-  }
 
   return (
     <main>
@@ -60,7 +53,9 @@ let Home = () => {
       <div className="package-top">
         <h3>Top Trending Packages</h3>
       </div>
-      <div className="listed-packages">{products.map(temp)}</div>
+      <div className="listed-packages">
+      {loading ? <BeatLoader color="green" size={50}/> : products.map(temp)}
+        </div>
 
       {/* Advanture page */}
       <Advanture/>

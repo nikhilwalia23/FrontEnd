@@ -47,22 +47,21 @@ function Singup(props) {
       ...prevInput,
       [name]: value,
     }));
-    setError(validate(signupForm));
+    setIsSubmit(false);
   }
 
   function HandleSubmit(event) {
     event.preventDefault();
     event.target.reset();
-   
+    setError(validate(signupForm));
     setIsSubmit(true);
   }
 
   useEffect(() => {
-    console.log(error);
     if (Object.keys(error).length === 0 && isSubmit) {
-      StSubmitBtn({ btnText: "submitting...", disabled: true });
+      StSubmitBtn({ btnText: "Loging...", disabled: true });
     }
-  }, [error, isSubmit]);
+  }, [isSubmit]);
 
   const validate = (values) => {
     const error = {};
