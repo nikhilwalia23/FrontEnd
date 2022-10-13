@@ -12,7 +12,7 @@ import { baseUrl } from "../BackendApi/auth";
 
 function Profile() {
 
-  const [showOrder, flip] = useState(false);
+  const [showOrder, setShowOrders] = useState(false);
   const [Orders,setOrders]  = useState([]);
   const [loading,setLoading] = useState(false);
   const openOrderBox = () => {
@@ -37,6 +37,7 @@ function Profile() {
         setOrders(response.data.Packages_taken);
         console.log(Orders);
         setLoading(false);
+        setShowOrders(true);
       })
       .catch(function (error) {
         console.log(error);
@@ -62,6 +63,8 @@ function Profile() {
   return (
     <div className="profile">
             <div>
+              {!showOrder && 
+              <div>
               <img className="myImage" src={userDetails.img} alt="can't display" />
               <div className="container_prof" >
                 <h1 className="persional_head common_head" >persional detail's</h1>
@@ -70,7 +73,10 @@ function Profile() {
                 <h3 className="mobileNo persional" >{userDetails.mobileNo}</h3>
                 <h3 className="address persional" >{userDetails.address}</h3>
               </div>
+              </div>
+            }
               <button className="orderdetails" onClick={openOrderBox} >view orders</button>
+              {showOrder && <div><h1>Yours Packages </h1></div>}
               {loading && <BeatLoader/>}
             </div>
     </div>
