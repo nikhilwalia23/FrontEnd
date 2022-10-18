@@ -143,7 +143,7 @@ function Singup(props) {
         </div>
         <div className="IPWithError">
           <div class="input-group has-validation">
-            <span class="input-group-text" id="inputGroupPrepend3">
+            <span >
               <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
             </span>
             <input
@@ -160,7 +160,7 @@ function Singup(props) {
         </div>
         <div className="IPWithError">
           <div class="input-group has-validation">
-            <span class="input-group-text" id="inputGroupPrepend3">
+            <span  id="inputGroupPrepend3">
               <FontAwesomeIcon icon={faPhone}></FontAwesomeIcon>
             </span>
             <input
@@ -178,7 +178,7 @@ function Singup(props) {
         </div>
         <div>
           <div class="input-group has-validation">
-            <span class="input-group-text" id="inputGroupPrepend3">
+            <span  id="inputGroupPrepend3">
               <FontAwesomeIcon icon={faLocationDot}></FontAwesomeIcon>
             </span>
             <input
@@ -193,7 +193,7 @@ function Singup(props) {
         </div>
         <div className="IPWithError">
           <div class="input-group has-validation">
-            <span class="input-group-text" id="inputGroupPrepend3">
+            <span  id="inputGroupPrepend3">
               <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
             </span>
             <input

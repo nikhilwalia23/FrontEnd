@@ -1,0 +1,15 @@
+.paywindow
+{
+    background-color: white;
+    width: 50%;
+    margin: auto;
+}
+.paypage
+{
+    display: flex;
+    text-align: center;
+}
+.payprop
+{
+    flex:1
+}

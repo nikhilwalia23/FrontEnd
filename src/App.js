@@ -10,6 +10,7 @@ import CarDetails from './componets/small_components/CarDetails';
 import Contact from './componets/Contact';
 import ResetForm from "./componets/resetForm";
 import Payment from './componets/Payment';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   //let [login,SetLogin] = useState(false);

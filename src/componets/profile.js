@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
-import {BeatLoader} from "react-spinners"
+import { BeatLoader } from "react-spinners"
+import { Card, Row, Col, Container } from "react-bootstrap";
 import "./profile.css";
 import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -8,13 +9,20 @@ import { apiContext } from "../ContextApi/ContextProvider";
 import Pic1 from "../static/images/pic-1.png";
 import Packagetaken from "./small_components/Packagetaken"
 import { baseUrl } from "../BackendApi/auth";
+import Ordercard from "./small_components/orderscard";
 
+//display Order Packages in Good Manner
+function display(ord, index) {
+  return (<Ordercard pack={ord} />);
+}
 
 function Profile() {
 
   const [showOrder, setShowOrders] = useState(false);
-  const [Orders,setOrders]  = useState([]);
-  const [loading,setLoading] = useState(false);
+  const [Orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+
   const openOrderBox = () => {
     setLoading(true);
     var data = {
@@ -23,7 +31,7 @@ function Profile() {
 
     var config = {
       method: 'post',
-      url: baseUrl+'/package/showpackage',
+      url: baseUrl + '/package/showpackage',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -33,14 +41,13 @@ function Profile() {
 
     axios(config)
       .then(function (response) {
-        console.log(response.data.Packages_taken);
         setOrders(response.data.Packages_taken);
-        console.log(Orders);
-        setLoading(false);
         setShowOrders(true);
+        setLoading(false);
       })
       .catch(function (error) {
         console.log(error);
+        setShowOrders(true);
         setLoading(false);
       });
   }
@@ -53,18 +60,18 @@ function Profile() {
   }
 
   const navigate = useNavigate();
-  
+
   const goToSignUpPage = () => {
     navigate("/singin");
   };
 
   const [items, setItems] = useState();
-
   return (
-    <div className="profile">
+    <div>
+      {!showOrder && <div className="profile">
+        <div>
+          {!showOrder &&
             <div>
-              {!showOrder && 
-              <div>
               <img className="myImage" src={userDetails.img} alt="can't display" />
               <div className="container_prof" >
                 <h1 className="persional_head common_head" >persional detail's</h1>
@@ -73,12 +80,16 @@ function Profile() {
                 <h3 className="mobileNo persional" >{userDetails.mobileNo}</h3>
                 <h3 className="address persional" >{userDetails.address}</h3>
               </div>
-              </div>
-            }
-              <button className="orderdetails" onClick={openOrderBox} >view orders</button>
-              {showOrder && <div><h1>Yours Packages </h1></div>}
-              {loading && <BeatLoader/>}
             </div>
+          }
+          <button className="orderdetails" onClick={openOrderBox} >view orders</button>
+          {loading && <BeatLoader />}
+        </div>
+      </div>
+      }
+      {showOrder && <div><h1>Yours Packages </h1>          <button className="orderdetails" onClick={ (event) => {setShowOrders(false);}} >Back to Profile orders</button>
+      </div>}
+      {showOrder && <Container><Row>{Orders.map(display)}</Row></Container>}
     </div>
   )
 }
