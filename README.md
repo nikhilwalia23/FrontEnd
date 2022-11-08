@@ -1,5 +1,5 @@
 # Deployment Link
-[Click to Visit](https://app.netlify.com/sites/astounding-tulumba-302b52)
+[Click to Visit](https://astounding-tulumba-302b52.netlify.app)
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
